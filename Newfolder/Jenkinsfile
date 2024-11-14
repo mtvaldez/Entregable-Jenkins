@@ -1,0 +1,51 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build entregable1') {
+            steps {
+                dir('entregable1') {
+                    bat 'C:\\Users\\mauro\\AppData\\Local\\Programs\\Python\\Python312\\python.exe -m pip install -r C:\\Users\\mauro\\Downloads\\Newfolder\\entregable1\\requirements.txt'
+                    echo 'Building entregable1...'
+                    dir('C:\\Users\\mauro\\Downloads\\Newfolder\\entregable1') {
+                        bat 'C:\\Users\\mauro\\AppData\\Local\\Programs\\Python\\Python312\\python.exe -m pydoc -w Entregable1'
+                    }
+                    bat 'copy C:\\Users\\mauro\\Downloads\\Newfolder\\entregable1\\*.html .'
+                    bat 'dir'
+                }
+            }
+        }
+        stage('Build entregable3') {
+            steps {
+                dir('entregable3') {
+                    bat 'C:\\Users\\mauro\\AppData\\Local\\Programs\\Python\\Python312\\python.exe -m pip install -r C:\\Users\\mauro\\Downloads\\Newfolder\\entregable3\\requirements.txt'
+                    echo 'Building entregable3...'
+                    dir('C:\\Users\\mauro\\Downloads\\Newfolder\\entregable3') {
+                        bat 'C:\\Users\\mauro\\AppData\\Local\\Programs\\Python\\Python312\\python.exe -m pydoc -w ESPtoENG'
+                    }
+                    bat 'copy C:\\Users\\mauro\\Downloads\\Newfolder\\entregable3\\*.html .'
+                    bat 'dir'
+                }
+            }
+        }
+        stage('Build entregable2') {
+            steps {
+                dir('entregable2') {
+                    echo 'Building entregable2...'
+                    bat 'if not exist "C:\\Users\\mauro\\Downloads\\Newfolder\\entregable2\\docs" mkdir "C:\\Users\\mauro\\Downloads\\Newfolder\\entregable2\\docs"'
+                    
+                    bat '"C:\\Program Files\\Java\\jdk-20\\bin\\javadoc.exe" -d "C:\\Users\\mauro\\Downloads\\Newfolder\\entregable2\\docs" "C:\\Users\\mauro\\Downloads\\Newfolder\\entregable2\\Empaquetado.java" "C:\\Users\\mauro\\Downloads\\Newfolder\\entregable2\\Envio.java" "C:\\Users\\mauro\\Downloads\\Newfolder\\entregable2\\Pago.java" "C:\\Users\\mauro\\Downloads\\Newfolder\\entregable2\\Pedido.java" "C:\\Users\\mauro\\Downloads\\Newfolder\\entregable2\\ThreadPool.java"'
+                    
+                    bat 'xcopy "C:\\Users\\mauro\\Downloads\\Newfolder\\entregable2\\docs\\*.html" . /s /i /y'
+                    bat 'dir'
+                }
+            }
+        }
+        stage('Archivar') {
+            steps {
+                archiveArtifacts allowEmptyArchive: true, artifacts: 'entregable1/*.html'
+                archiveArtifacts allowEmptyArchive: true, artifacts: 'entregable3/*.html'
+                archiveArtifacts allowEmptyArchive: true, artifacts: 'entregable2/**/*.html' 
+            }
+        }
+    }
+}

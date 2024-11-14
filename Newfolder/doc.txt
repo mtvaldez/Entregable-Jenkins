@@ -1,0 +1,36 @@
+Entregable Final - Mauro Valdez
+Para esta integración con Jenkins decidí que la documentación sea creada por Jenkins al correr su código pipeline.
+Por otra parte, tengo el HTML que es la página con la cual interactúa el usuario, que tiene en su código la 
+dirección local que Jenkins usa para correr su servicio. Este método se podría considerar asíncrono, ya que el HTML
+puede acceder a la última documentación que Jenkins género exitosamente, por eso salvo la primera vez que lo corrí,
+la página HTML siempre va a devolver documentación correcta.
+Los requirements.txt son las dependencias para los proyectos los cuales son agregados a la documentación.
+
+Estructura del proyecto:
+
+Newfolder/
+├── entregable1/
+│   ├── Entregable1.py
+│   ├── requirements.txt
+│   ├── trivia_questions.csv
+│   └── Entregable1.html
+├── entregable2/
+│   ├── docs/
+│   │   └── donde va el html generado
+│   ├── ThreadPool.java
+│   ├── Empaquetado.java
+│   ├── Envio.java
+│   ├── Pago.java
+│   ├── Pedido.java
+│   ├── Entregable2.iml
+│   └── requirements.txt
+├── entregable3/
+│   ├── ESPtoENG.py
+│   ├── ESPtoENG.html
+│   └── requirements.txt
+├── browser/
+│   ├── index.html
+│   ├── script.js
+│   └── styles.css
+├── doc.txt
+└── Jenkinsfile
